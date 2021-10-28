@@ -1,7 +1,7 @@
 # BadNameDetector
 Detects if a user has a predefined "bad name" and replaces it according to configs.
 
-## Default Condigs
+## Default Configs
 ```cs
 public bool IsEnabled { get; set; } = true;
 
