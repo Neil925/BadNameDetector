@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Exiled.Events.EventArgs;
 using static BadNameDetector.Handlers;
 
@@ -18,13 +19,13 @@ namespace BadNameDetector
             if (_config.ReplaceNumbersWithWords)
                 name = name.Replace("0", "o").Replace("9", "g").Replace("8", "b").Replace("7", "i").Replace("5", "s").Replace("4", "a").Replace("3", "e").Replace("1", "i");
 
-            if (_config.PerfectBadNameComparisons.Contains(name))
+            if (_config.PerfectBadNameComparisons.Contains(name, StringComparison.CurrentCultureIgnoreCase))
             {
                 SetName(ev.Player);
                 return;
             }
 
-            if (_config.ContainsBadNameComparisons.Any(s => s.Contains(name)))
+            if (_config.ContainsBadNameComparisons.Any(s => s.ToLower().Contains(name.ToLower())))
                 SetName(ev.Player);
         }
     }
