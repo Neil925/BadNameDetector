@@ -20,12 +20,12 @@ namespace BadNameDetector
 
             if (_config.PerfectBadNameComparisons.Contains(name))
             {
-                SetName(ev.Player, name);
+                SetName(ev.Player);
                 return;
             }
 
             if (_config.ContainsBadNameComparisons.Any(s => s.Contains(name)))
-                SetName(ev.Player, name);
+                SetName(ev.Player);
         }
     }
 }
