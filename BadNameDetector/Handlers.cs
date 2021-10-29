@@ -33,5 +33,11 @@ namespace BadNameDetector
             InUseCustomNames.Add(nameReplacement);
             nameReplacements++;
         }
+
+        public static void ResetValues()
+        {
+            nameReplacements = 0;
+            InUseCustomNames.Clear();
+        }
     }
 }

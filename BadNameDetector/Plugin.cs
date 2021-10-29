@@ -2,6 +2,8 @@
 using Exiled.API.Features;
 
 using Player = Exiled.Events.Handlers.Player;
+using Server = Exiled.Events.Handlers.Server;
+
 
 namespace BadNameDetector
 {
@@ -23,12 +25,16 @@ namespace BadNameDetector
 
             Player.Verified += _handler.OnVerified;
 
+            Server.RestartingRound += _handler.OnRestartingRound;
+
             base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
             Player.Verified -= _handler.OnVerified;
+
+            Server.RestartingRound -= _handler.OnRestartingRound;
 
             _handler = null;
 

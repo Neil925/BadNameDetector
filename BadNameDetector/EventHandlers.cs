@@ -28,5 +28,7 @@ namespace BadNameDetector
             if (_config.ContainsBadNameComparisons.Any(s => s.ToLower().Contains(name.ToLower())))
                 SetName(ev.Player);
         }
+
+        public void OnRestartingRound() => ResetValues();
     }
 }
