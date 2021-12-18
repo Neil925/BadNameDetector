@@ -14,13 +14,23 @@ namespace BadNameDetector
         private static readonly Config _config = Plugin.Instance.Config;
         private static readonly Random rand = new Random();
 
-        public static string RemoveSpecialCharacters(this string str)
+        public static void RemoveSpecialCharacters(string str, out string newName, out List<int> removedChars)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var c in str.Where(c => c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z'))
-                sb.Append(c);
+            List<int> indexArray = new List<int>();
+            int count = 0;
 
-            return sb.ToString();
+            foreach (var c in str)
+            {
+                if (c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')
+                    sb.Append(c);
+                else
+                    indexArray.Add(count);
+                count++;
+            }
+
+            newName = sb.ToString();
+            removedChars = indexArray;
         }
 
         public static void SetName(Player player)

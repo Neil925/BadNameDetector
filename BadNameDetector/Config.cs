@@ -43,5 +43,8 @@ namespace BadNameDetector
 
         [Description("Replace 4 with A(a), 3 with E(e), 1 with I(i), etc.")]
         public bool ReplaceNumbersWithWords { get; private set; } = true;
+
+        [Description("If the name contains special characters, this will be the amount of similarity required to rename the user.")]
+        public float PercentageComparision { get; private set; } = .70f;
     }
 }
