@@ -12,7 +12,7 @@ namespace BadNameDetector
         public override string Name => "BadNameDetector";
         public override string Prefix => "bnd";
         public override string Author => "Neil";
-        public override Version RequiredExiledVersion => new Version(3, 2, 1);
+        public override Version RequiredExiledVersion => new Version(4, 1, 5);
 
         public static Plugin Instance;
         private EventHandlers _handler;

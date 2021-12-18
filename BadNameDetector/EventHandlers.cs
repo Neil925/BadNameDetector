@@ -8,26 +8,26 @@ namespace BadNameDetector
 {
     internal class EventHandlers
     {
-        private static readonly Config _config = Plugin.Instance.Config;
+        private static readonly Config Config = Plugin.Instance.Config;
 
         public void OnVerified(VerifiedEventArgs ev)
         {
             string name = ev.Player.Nickname;
             List<int> removedCharacters = new List<int>();
 
-            if (_config.RemoveSpecialCharacters)
+            if (Config.RemoveSpecialCharacters)
                 RemoveSpecialCharacters(name, out name, out removedCharacters);
 
-            if (_config.ReplaceNumbersWithWords)
+            if (Config.ReplaceNumbersWithWords)
                 name = name.Replace("0", "o").Replace("9", "g").Replace("8", "b").Replace("7", "i").Replace("5", "s").Replace("4", "a").Replace("3", "e").Replace("1", "i");
 
-            if (_config.PerfectBadNameComparisons.Contains(name, StringComparison.CurrentCultureIgnoreCase))
+            if (Config.PerfectBadNameComparisons.Contains(name, StringComparison.CurrentCultureIgnoreCase))
             {
                 SetName(ev.Player);
                 return;
             }
 
-            if (_config.ContainsBadNameComparisons.Any(s =>
+            if (Config.ContainsBadNameComparisons.Any(s =>
                 name.ToLower().Contains(s.ToLower()) && !string.IsNullOrEmpty(name)))
             {
                 SetName(ev.Player);
@@ -36,24 +36,24 @@ namespace BadNameDetector
 
             if (name.Length == ev.Player.Nickname.Length) return;
 
-            foreach (var comparison in _config.PerfectBadNameComparisons)
+            foreach (var comparison in Config.PerfectBadNameComparisons)
             {
                 foreach (var removed in removedCharacters)
                     comparison.Remove(removed);
 
-                if ((float)comparison.Length / ev.Player.Nickname.Length < _config.PercentageComparision) continue;
+                if ((float)comparison.Length / ev.Player.Nickname.Length < Config.PercentageComparision) continue;
                 if (!string.Equals(comparison, name, StringComparison.CurrentCultureIgnoreCase)) continue;
 
                 SetName(ev.Player);
                 return;
             }
 
-            foreach (var comparison in _config.ContainsBadNameComparisons)
+            foreach (var comparison in Config.ContainsBadNameComparisons)
             {
                 foreach (var removed in removedCharacters)
                     comparison.Remove(removed);
 
-                if ((float)comparison.Length / ev.Player.Nickname.Length < _config.PercentageComparision) continue;
+                if ((float)comparison.Length / ev.Player.Nickname.Length < Config.PercentageComparision) continue;
                 if (!name.ToLower().Contains(comparison.ToLower())) continue;
 
                 SetName(ev.Player);
