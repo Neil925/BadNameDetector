@@ -38,7 +38,7 @@ namespace BadNameDetector
 
             foreach (var comparison in Config.PerfectBadNameComparisons)
             {
-                foreach (var removed in removedCharacters)
+                foreach (var removed in removedCharacters.Where(removed => comparison.Length < removed))
                     comparison.Remove(removed);
 
                 if ((float)comparison.Length / ev.Player.Nickname.Length < Config.PercentageComparision) continue;
@@ -50,7 +50,7 @@ namespace BadNameDetector
 
             foreach (var comparison in Config.ContainsBadNameComparisons)
             {
-                foreach (var removed in removedCharacters)
+                foreach (var removed in removedCharacters.Where(removed => comparison.Length < removed))
                     comparison.Remove(removed);
 
                 if ((float)comparison.Length / ev.Player.Nickname.Length < Config.PercentageComparision) continue;
